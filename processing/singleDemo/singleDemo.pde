@@ -6,13 +6,8 @@
 
 class Demo
 {
-	void draw() {}
+  void draw() {}
 }
-
-
-ArrayList<Demo> demos;
-int frame_count = 0;
-int d_count = 0;
 Demo d;
 Vst v;
 
@@ -29,25 +24,16 @@ void setup() {
 
     frameRate(25);
 
-    demos = new ArrayList<Demo>();
-   
-    demos.add(new DemoSVG("32c3_knot.svg"));
-    demos.add(new SpiralDemo());
-    demos.add(new Demo3D());
-    demos.add(new SwarmDemo());
-    demos.add(new QixDemo());
-
-    d = demos.get(0);
+    d = new DemoSVG("buran2.svg");
+    //d = new DemoSVG("christmas.svg");
+    //d = new SpiralDemo();
+    //d = new Demo3D();
+    //d = new SwarmDemo();
+    //d = new QixDemo();
 }
 
 
 void draw() {
-    if (frame_count++ > 100)
-    {
-        frame_count = 0;
-        d_count++;
-        d = demos.get(d_count % demos.size());
-    }
     
     d.draw();
 

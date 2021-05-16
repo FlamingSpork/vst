@@ -4,12 +4,25 @@ import processing.serial.*;
 Serial createSerial() {
   // finding the right port requires picking it from the list
   // should look for one that matches "ttyACM*" or "tty.usbmodem*"
-  for (String port : Serial.list()) {
-    println(port);
-    if (match(port, "usbmode|ACM") == null) {
-      continue;
+  String os = System.getProperty("os.name");
+  println(os);
+  if(os.contains("Windows"))
+  {
+      for (String port : Serial.list()) {
+      println(port);
+      if (match(port, "COM") == null) {
+        continue;
+      }
+      return new Serial(this, port, 9600);
     }
-    return new Serial(this, port, 9600);
+  }else {
+    for (String port : Serial.list()) {
+      println(port);
+      if (match(port, "usbmode|ACM") == null) {
+        continue;
+      }
+      return new Serial(this, port, 9600);
+    }
   }
 
   println("No valid serial ports found?\n");
@@ -127,7 +140,7 @@ class Vst {
     pushStyle();
     while (iter.hasNext()) {
       VstFrame f = (VstFrame) iter.next();
-      PVector p = new PVector((float) (f.x / 4097.0) * width, (float) ((4097 - f.y) / 4097.0) * height);
+      PVector p = new PVector((float) (f.x / 2048.0) * width, (float) ((4097 - f.y) / 4097.0) * height);
 
       if (f.z == 0) {
         // Transit
@@ -162,7 +175,7 @@ class VstFrame {
   int z;
 
   VstFrame(int x, int y, int z) {
-    this.x = x;
+    this.x = x/2;
     this.y = y;
     this.z = z;
   }
@@ -425,5 +438,3 @@ class Clipping {
     }
   }
 }
-
-

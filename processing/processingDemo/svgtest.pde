@@ -1,7 +1,7 @@
 /*
  * Draw a vector line art based on an SVG file.
  */
-class DemoSVG
+class DemoSVG extends Demo
 {
 	PShape s;
 	final static float eps = 0.01;
@@ -47,10 +47,12 @@ class DemoSVG
 			PVector p1 = s.getVertex(j);
 			if (p0 != null && p1 != null)
 			{
-				PVector ps0 = PVector.mult(p0, 0.6);
-				PVector ps1 = PVector.mult(p1, 0.6);
+        //0.6
+				PVector ps0 = PVector.mult(p0, 2.0);
+				PVector ps1 = PVector.mult(p1, 2.0);
 				ps0.add(new PVector(200,100));
 				ps1.add(new PVector(200,100));
+        //println(ps0, ps1);
 				line(ps0, ps1);
 			}
 
